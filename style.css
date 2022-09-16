@@ -1,0 +1,29 @@
+.container {
+  background-color: black;
+  height: 700px;
+  width: 100%;
+}
+
+.running-track {
+  background-color: black;
+  height: 600px;
+  margin: auto;
+}
+
+.cards-container {
+  position: relative;
+  right: 100px;
+}
+
+.single-player {
+  position: relative;
+  right: 50px;
+}
+
+#dog,
+#horse,
+#duck,
+#chick {
+  position: relative;
+  right: 50px;
+}/*# sourceMappingURL=style.css.map */
