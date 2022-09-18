@@ -8,7 +8,7 @@ let runners = [
   //     step: 50,
   //   },
 ];
-function Runner(name, id, voice, img, step, pos = 50) {
+function Runner(name, id, voice, img, step, pos = 10) {
   {
     this.name = name;
     this.id = id;
@@ -24,32 +24,29 @@ let dog = new Runner(
   "dog",
   "woof",
   "https://img.freepik.com/premium-vector/design-bigol-animated-dog-sitting_469988-3.jpg",
-  50,
-  10
+  Math.floor(Math.random() * 30) + 25
 );
 let horse = new Runner(
   "horse",
   "horse",
   "neigh",
   "https://thumbs.dreamstime.com/z/horse-cartoon-drawing-vector-illustration-funny-cute-painted-brown-blue-eyes-isolated-white-background-animated-c-121143800.jpg",
-  70,
-  10
+  // Returns a random integer from 1 to 10:
+  Math.floor(Math.random() * 30) + 25
 );
 let duck = new Runner(
   "duck",
   "duck",
   "quack",
   "https://img.freepik.com/premium-vector/duck-cartoon_119631-40.jpg?w=2000",
-  40,
-  10
+  Math.floor(Math.random() * 30) + 25
 );
 let chick = new Runner(
   "chick",
   "chick",
   "cheap",
   "https://img.freepik.com/premium-vector/cool-chicken_6460-729.jpg?w=2000",
-  30,
-  10
+  Math.floor(Math.random() * 30) + 25
 );
 
 runners.push(dog, horse, duck, chick);
@@ -75,30 +72,44 @@ const duckAudio = new Audio("sounds/ducksound.mp3");
 const chickenAudio = new Audio("sounds/chickensound.wav");
 
 createCards(runners);
-
+let chosenRunner = document.querySelector(".chosen-runner");
 function makeSound(id) {
   switch (id) {
     case "dog":
-      console.log(id);
       dogAudio.play();
       dogAudio.currentTime = 0;
+      chosenRunner.innerHTML = `${id} is chosen`;
+      enlargeImg(0);
+
       break;
     case "horse":
-      console.log(id);
       horseAudio.play();
       horseAudio.currentTime = 0;
+      chosenRunner.innerHTML = `${id} is chosen`;
+      enlargeImg(1);
       break;
     case "duck":
-      console.log(id);
       duckAudio.play();
       duckAudio.currentTime = 0;
+      chosenRunner.innerHTML = `${id} is chosen`;
+      enlargeImg(2);
       break;
     case "chick":
-      console.log(id);
       chickenAudio.play();
       chickenAudio.currentTime = 0;
+      chosenRunner.innerHTML = `${id} is chosen`;
+      enlargeImg(3);
+
       break;
   }
+}
+function enlargeImg(i) {
+  card.children[i].children[0].children[0].style.width = 100 + "px";
+  card.children[i].children[0].children[0].style.height = 100 + "px";
+  setTimeout(() => {
+    card.children[i].children[0].children[0].style.width = 80 + "px";
+    card.children[i].children[0].children[0].style.height = 80 + "px";
+  }, 2000);
 }
 
 const startBtn = document.querySelector(".start");
@@ -113,8 +124,9 @@ function startGame() {
       key.pos += key.step;
       let div = document.getElementById(`${key.id}`);
       div.style.right = key.pos + "px";
-      if (key.pos >= 500) {
+      if (key.pos >= 1050) {
         clearInterval(gameInterval);
+        chosenRunner.innerHTML = `${key.id} is winner!🥇`;
         isGameOn = false;
       }
     }
@@ -124,12 +136,15 @@ function startGame() {
 let resetGameButton = document.querySelector(".reset");
 resetGameButton.addEventListener("click", resetGame);
 function resetGame() {
+  chosenRunner.innerHTML = "";
   console.log("start", isGameOn);
+
   if (isGameOn) return;
   for (let key of runners) {
     key.pos = 10;
     let div = document.getElementById(`${key.id}`);
     div.style.right = key.pos + "px";
+    key.step = Math.floor(Math.random() * 30) + 25;
     isGameOn = false;
   }
   console.log("end", isGameOn);

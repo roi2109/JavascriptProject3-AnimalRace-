@@ -10,16 +10,21 @@
 }
 .cards-container {
   position: relative;
-  right: 100px;
-}
-.single-player {
-  position: relative;
   right: 50px;
+  padding: 1px;
 }
 #dog,
 #horse,
 #duck,
 #chick {
   position: relative;
-  right: 50px;
+  right: 0;
+}
+.finish-line {
+  background-color: white;
+  width: 10px;
+  height: 750px;
+  position: absolute;
+  left: 350px;
+  bottom: 20px;
 }
